@@ -1,58 +1,87 @@
+
+
+Ægir Örn Sveinsson <aegirorn@gmail.com>
+Para:
+Paula
+
+dom., 25 de oct. a las 11:44 p. m.
+
 var currentPlaylist = [];
 var likedPlaylist = [];
 
-var currentIndex = 0;
+var currentIndex = 0;         //position in the array+++++++
 var audioElement;
 let allSongs = new Array();
 
-$(document).ready(function() {
-  audioElement = new Audio();
-  loadSongList();
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  audioElement = new Audio();  // create an instance of the Audio class
+  loadSongList();             // here it loads all the songs from local storage
 });
 
-function saveSongList() {
-  localStorage.setItem('songlist', JSON.stringify(allSongs)); 
+
+//define the function of saveSongList
+function saveSongList() {   // writes the song list to local storage
+  localStorage.setItem('songList', JSON.stringify(allSongs));
 }
 
+
+
 function loadSongList() {
-  var storedSongs = JSON.parse(localStorage.getItem('songlist'));
-  
+  //get the content from local storage of key songList into a temporary variable
+  var storedSongs = JSON.parse(localStorage.getItem('songList'));
+  console.log(storedSongs);
+ 
+  //if there is something stored then we update the allSongs array
   if (storedSongs != null) {
     allSongs = storedSongs;
     audioElement.setTrack(allSongs[0],false);
+    //using the allSongs button to load the DOM
     allSongsBtn.click();
   }
 }
 
+
+//***************wrapper around HTML audio tag*******************************************
+
+//Audio is a javascript class
 function Audio() {
 
-	this.currentlyPlaying;
+this.currentlyPlaying;
   this.audio = document.createElement('audio');
-  
+  //when the song is ended goes to the next song in the
   this.audio.addEventListener("ended", function() {
-		nextSong();
-	});
+nextSong();
+});
 
-	this.setTrack = function(track) {
-		this.currentlyPlaying = track;
-		this.audio.src = track.path;
-	}
-
-	this.play = function() {
-    this.audio.play();
-	}
-
-	this.pause = function() {
-		this.audio.pause();
-  }
-  
-  this.setTime = function(seconds) {
-		this.audio.currentTime = seconds;
-	}
+  //track is a song
+this.setTrack = function(track) {
+this.currentlyPlaying = track;
+this.audio.src = track.path;
 }
 
+this.play = function() {
+    this.audio.play();
+}
+
+this.pause = function() {
+this.audio.pause();
+  }
+ 
+  //this function can be used to put the song to the beginning
+  //this can be used for the Progress Bar, posibly by moving it to the middle
+  //and the song will start from there
+  this.setTime = function(seconds) {
+this.audio.currentTime = seconds;
+}
+}
+//************************************************************************* */
+
+//TrackID is the position of a song in an array
 function setTrack(trackId, play) {
   pauseSong();
+
+  //updates the index of the current song with a new value
   currentIndex = currentPlaylist.indexOf(trackId);
   var track = currentPlaylist[currentIndex];
 
@@ -64,28 +93,34 @@ function setTrack(trackId, play) {
 }
 
 function prevSong() {
+  //if the song has been playing for more than 3 seconds or the first song in the list the previous btn
+  //will set the song to the beginning,
   if(audioElement.audio.currentTime >= 3 || currentIndex == 0) {
-		audioElement.setTime(0);
-	}
-	else {
+audioElement.setTime(0);
+  }
+ 
+  //if the song has been playing for less than 3 seconds will go to the previous song
+else {
     currentIndex = currentIndex - 1;
   }
 
   var trackToPlay = currentPlaylist[currentIndex];
+//set  current track to previous song and play it
   setTrack(trackToPlay, true);
   updatePlayButtonImages(true);
 }
 
 function nextSong() {
-
-	if(currentIndex == currentPlaylist.length - 1) {
-		currentIndex = 0;
-	}
-	else {
-		currentIndex++;
+//if current song is the last song , next song will be the first song
+//it goes back in the list
+if(currentIndex == currentPlaylist.length - 1) {
+currentIndex = 0;
+}
+else {
+currentIndex = currentIndex + 1;
   }
-  
-	var trackToPlay = currentPlaylist[currentIndex];
+ 
+var trackToPlay = currentPlaylist[currentIndex];
   setTrack(trackToPlay, true);
   updatePlayButtonImages(true);
 }
@@ -98,31 +133,43 @@ function playSong() {
 }
 
 
-
+//pauses the currently playing song and updates icons of play and pause
 function pauseSong() {
     audioElement.pause();
     updatePlayButtonImages(false);
 }
 
+
+//changes the images from play to pause or viceversa
 function updatePlayButtonImages(currentIsPlaying) {
   elements = document.getElementsByClassName("newSongPlayBtn");
+  //this loop will go though the button images in the list and set it to play icon
+  //all of them
+ 
     for (var i = 0; i < elements.length; i++) {
         elements[i].src="https://i.ibb.co/j59Mq8R/songlist-Play.png";
     }
-
+   //gets the play btn in the footer
     var btnImage = document.getElementById("playBtnImg");
+    //find the current song
     var selectedSong = currentPlaylist[currentIndex];
 
+// finds the ID of the button image of selected song
     var currentBtnId  = "SongPlayBtn"+ selectedSong.songId
     var currentButton = document.getElementById(currentBtnId);
 
     if(currentIsPlaying){
-
+// if the song is playing set button to pause
+//list
        currentButton.src = "https://i.ibb.co/tM331H6/songlist-Pause.png";
+
+       //footer
        btnImage.src = "../img/pause.png";
     }
     else {
       currentButton.src = "https://i.ibb.co/j59Mq8R/songlist-Play.png";
+
+      //footer
       btnImage.src = "../img/play.png";
     }
 }
@@ -140,6 +187,8 @@ function addNewSong(songSrc) {
     artist: "Daddy Yankee",
     title: "terremoto",
     liked: false,
+
+    //plus 1
     songId: allSongs.length + 1,
     audio: songSrc,
     path: songSrc
@@ -162,6 +211,7 @@ let addSongToDom = function (song) {
   newSong.classList.add("newSong");
   songList.appendChild(newSong);
 
+
   newSong.setAttribute("data-index", song.songId -1);
 
   //song cover
@@ -173,7 +223,9 @@ let addSongToDom = function (song) {
   //play button
   let newSongPlayBtn = document.createElement("img");
   newSongPlayBtn.src = "https://i.ibb.co/j59Mq8R/songlist-Play.png";
-  newSongPlayBtn.id = "SongPlayBtn"+ song.songId
+
+  //each play button in the list will get a separate ID
+  newSongPlayBtn.id = "SongPlayBtn" + song.songId
   newSongPlayBtn.classList.add("newSongPlayBtn");
   newSong.appendChild(newSongPlayBtn);
   newSongPlayBtn.addEventListener("click", playOrPauseSelectedSong);
@@ -203,6 +255,9 @@ let addSongToDom = function (song) {
   newSongHeart.src = song.liked
     ? "https://i.ibb.co/sWv1GY8/heart-Full.png"
     : "https://i.ibb.co/5xt3Wnh/heart.png";
+
+    //ID for the hearts to update the image when click
+
   newSongHeart.id = "SongHeart"+ song.songId
   newSongIcons.appendChild(newSongHeart);
   newSongHeart.addEventListener("click", likeSong);
@@ -297,19 +352,22 @@ function playOrPauseSelectedSong(e) {
 function likeSong(e) {
   //target the dom element of the selected objects id
   const selectedIndex = e.target.parentNode.parentNode.getAttribute("data-index");
+  //getting the selected song
   const selctedSong = currentPlaylist[selectedIndex];
 
   //set the selected objects liked value to whatevers its not
   allSongs[selectedIndex].liked = !allSongs[selectedIndex].liked;
-  //filers all liked songs into an array called likedSongs
+  //filters the songs liked and updates the likedPlayList
   likedPlaylist = allSongs.filter((song) => song.liked == true);
-  
+ 
+  //find the heart icon and if it is liked set the icon to red, else to empty
   var heartIcon  = document.getElementById("SongHeart" + selctedSong.songId);
   heartIcon.src = selctedSong.liked
      ? "https://i.ibb.co/sWv1GY8/heart-Full.png"
      : "https://i.ibb.co/5xt3Wnh/heart.png";
   console.log("Song liked/unliked.");
 
+  //saves changes to local storage
   saveSongList();
 }
 
@@ -327,7 +385,9 @@ function removeSong(e) {
 
   console.log("Song removed.");
   saveSongList();
+  //reset the all songs because a song has been removed
   resetAllSongsDom();
+
   updatePlaybarButtonsDisabledState();
 }
 
@@ -346,14 +406,14 @@ allSongsBtn.addEventListener("click", function () {
 });
 
 function LoadPlaylists(filterLikedSongs){
-  
+ 
   let playlist = allSongs;
   if (filterLikedSongs){
     playlist = playlist.filter((song) => song.liked == true);
   }
 
   currentPlaylist = playlist;
-  
+ 
   document.querySelector(".songList").innerHTML = "";
   playlist.forEach((song) => {
     addSongToDom(song);
@@ -363,7 +423,7 @@ function LoadPlaylists(filterLikedSongs){
 
 function playbarBtnPlayOnClick() {
   var btnImage = document.getElementById("playBtnImg");
-  
+ 
   if (btnImage.src.includes("play"))
   {
     playSong();
@@ -374,6 +434,8 @@ function playbarBtnPlayOnClick() {
   }
 }
 
+//disable is true if the play list is empty
+//from the footer
 function updatePlaybarButtonsDisabledState() {
   const disabled = currentPlaylist.length == 0;
 
@@ -381,3 +443,7 @@ function updatePlaybarButtonsDisabledState() {
   document.getElementById("playbarBtnPlay").disabled = disabled;
   document.getElementById("playbarBtnForward").disabled = disabled;
 }
+
+
+
+
