@@ -1,0 +1,143 @@
+/*style menuBar*/
+.menu-btn {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  color: #fff9f9;
+  text-decoration: none;
+  padding: 8px;
+  opacity: 0.7;
+  text-align: left;
+  margin-left: 3rem;
+  font-size: 18px;
+  margin-top: 1px;
+  min-width: 130px;
+}
+
+.menuBtns {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-btn:hover {
+  opacity: 1;
+  margin-left: 15%;
+  margin-right: 5%;
+  border-radius: 10em 0 0 10em;
+
+  background: linear-gradient(
+    90deg,
+    rgba(131, 89, 176, 0.6) 1%,
+    rgba(0, 168, 255, 0) 100%
+  );
+}
+
+.container {
+  text-align: center;
+}
+
+.newSong {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.15) 84%
+  );
+  position: relative;
+  left: 0%;
+  width: 90%;
+  height: 80px;
+  opacity: 0.9;
+}
+
+.newSong:hover {
+  opacity: 1;
+  transform: scale(1.005);
+}
+
+.newSongCover {
+  width: 50px;
+  margin-left: 2rem;
+  margin-right: 3rem;
+}
+
+.newSongPlayBtn {
+  margin-right: 3rem;
+}
+.newSongPlayBtn:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.newSongInfo {
+  min-width: 100px;
+  margin-right: 35rem;
+}
+.icons {
+  margin-right: 3rem;
+}
+.icons img {
+  margin-right: 1rem;
+}
+
+.line {
+  background-color: white;
+  height: 1px;
+  width: 90%;
+  opacity: 0.1;
+}
+
+h3 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 21px;
+  color: #be2929;
+  opacity: 0.9;
+}
+
+h4 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 21px;
+  color: #fff9f9;
+  opacity: 0.8;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+#addSongBtn {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 19.8064px;
+  line-height: 23px;
+  color: rgba(255, 249, 249, 0.5);
+  margin-top: 1rem;
+}
+
+@media (min-width: 600px) {
+}
+
+@media (min-width: 900px) {
+}

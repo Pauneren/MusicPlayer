@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/grid-container.css" />
+    <link rel="stylesheet" href="css/playbarStyle.css" />
+    <link rel="stylesheet" href="css/navBar-main-addSong-songPlay.css"/>
+    <title>Document</title>
+  </head>
+  <body class="grid-container">
+    <header class="header">
+      <img src="https://i.ibb.co/9bZfS56/terremoto-logo.png" alt="">
+    </header>
+     <!-- start of menu -->
+    <nav class="navbar">
+      <svg
+        onclick="menu()"
+        width="1em"
+        class="menuh"
+        height="1em"
+        viewBox="0 0 16 16"
+        class="bi bi-list"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+        />
+      </svg>
+      <div class="menuBtns"> 
+        <button id="allSongsBtn" class="menu-btn">All songs</button>
+        <button id="likedSongsBtn" class="menu-btn">Liked songs</button>
+      </div>
+    </nav>
+    <!-- end of menu -->
+
+    <!--start of Songlist -->
+    <article class="main">
+      <div class="line"></div>
+      <!-- songlist container -->
+      <div class="container">
+        <div class="songList"></div>
+      </div>
+      <!--end of songlist -->
+
+      <!--Start of Sidebar -->
+      <!-- this part below here becomes active when the navbar.js is connetced properly as a SPA -->
+      <div id="likesongs" class="container">
+        <div class="songList"></div>
+      </div>
+    </article>
+    <!-- this part above here becomes active when the navbar.js is connetced properly as a SPA -->
+
+    <aside class="sidebar">
+      <input
+        type="file"
+        accept=".mp3, .wav, audio/*"
+        id="real-upload"
+        hidden="hidden"
+      />
+      <button id="addSongBtn">ADD SONG +</button>
+    </aside>
+
+
+    <!-- Start of playbar -->
+
+
+    <section class="songPlay">
+      <div class="nowPlaying">
+        <img
+          class="nowPlayingImg" id="currentCover"
+          src="img/Schoolboy_Q_-_Crash_Talk.png"
+          alt=""
+        />
+        <div class="nowPlayingTxt">
+          <h3 id="artist">No song</h3>
+          <h4 id="title">please add song</h4>
+        </div>
+      </div>
+    </section>
+      <div class="footer">
+        <div class="footer_content">    
+          <div class="progressBar">
+            <p>1:34</p>
+            <span id="progress" class="progressBarPlaying"></span>
+            <span class="progressBarEmpty"></span>
+            <p>3:00</p>
+          </div>
+          <div class="playBar">
+            <button id="playbarBtnBack" onclick="prevSong()" disabled="true">
+              <img src="img/backwards.png" alt="Back" />
+            </button>
+            <button id="playbarBtnPlay" onclick="playbarBtnPlayOnClick()" disabled="true" >
+              <img id="playBtnImg" src="img/play.png" alt="" />
+            </button>
+            <button id="playbarBtnForward" onclick="nextSong()" disabled="true" >
+              <img src="img/forward.png" alt="Forward" />
+            </button>
+            <audio id="song" src=""></audio>
+          </div>
+        </div>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="js/songlistPaula.js"></script>
+  </body>
+</html>

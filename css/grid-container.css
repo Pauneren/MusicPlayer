@@ -1,0 +1,103 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-size: 1.2rem;
+  min-height: 100%;
+}
+
+.header {
+  font-family: "Roboto", sans-serif;
+  color: #d3cdce;
+  background-color: #211e25;
+  grid-area: header;
+}
+.navbar {
+  font-size: 20px;
+  grid-area: navbar;
+  background-color: #211e25;
+}
+
+.main {
+  grid-area: main;
+  background-color: #211e25;
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+/*aside-sidebar*/
+.sidebar {
+  font-family: "Roboto", sans-serif;
+  grid-area: sidebar;
+  background-color: #211e25;
+}
+
+/*section-songPlay*/
+.songPlay {
+  font-family: "Roboto", sans-serif;
+  grid-area: songPlay;
+  background: rgb(33, 30, 37);
+  background: linear-gradient(
+    180deg,
+    rgba(33, 30, 37, 1) 0%,
+    rgba(0, 0, 0, 1) 250%
+  );
+  color: white;
+}
+
+/*footer*/
+.footer {
+  font-family: "Roboto", sans-serif;
+  grid-area: footer;
+  background: rgb(33, 30, 37);
+  background: linear-gradient(
+    180deg,
+    rgba(33, 30, 37, 1) 0%,
+    rgba(0, 0, 0, 1) 250%
+  );
+  color: white;
+}
+
+/*grid-propeties*/
+.grid-container > * {
+  text-align: center;
+}
+.grid-container {
+  display: -ms-grid;
+  display: grid;
+  grid-template: "header   navbar" 90px "main   main" auto "sidebar  sidebar" 50px "songPlay songPlay" 150px "footer   footer" 100px/70% auto;
+  /* ancho columna 1 de 70%px y ancho columna 2 automatico*/
+}
+
+@media (min-width: 600px) {
+  .grid-container {
+    grid-template: "header   header" 100px "navbar   main" auto "sidebar  sidebar" 50px "songPlay  footer" 100px/200px auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .grid-container {
+    -ms-grid-rows: 100px auto 50px 100px;
+    grid-template-rows: 100px auto 50px 100px;
+    /*Fila 1 tendra 100px, fila dos tendra 50px, fila 3 tomara tamaño automatico y fila 4 100px*/
+    grid-template: "header   header" 150px "navbar   main" auto "sidebar  sidebar" 50px "songPlay  footer" 150px / auto 85%;
+  }
+}
+
+/* NEED JAVASCRIPT TO SET CLASS ACTIVE: */
+.tablink:active {
+  background: tomato;
+  color: rgba(255, 249, 249, 0.8);
+}
